@@ -22,6 +22,11 @@ call vundle#begin()
 	Plugin 'tpope/vim-fugitive'
 	Plugin 'ctrlpvim/ctrlp.vim'
 	Plugin 'scrooloose/nerdtree'
+	Plugin 'Xuyuanp/nerdtree-git-plugin'
+	Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+	Plugin 'vim-airline/vim-airline'
+	Plugin 'vim-airline/vim-airline-themes'
+	Plugin 'ryanoasis/vim-devicons'
 call vundle#end() 
 
 filetype plugin indent on
@@ -98,9 +103,7 @@ set pastetoggle=<F2>
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-exec "set listchars=tab:\uB7\uB7,trail:\uB7,nbsp:~" 
-	set list
-
+set listchars=tab:\|\ ,trail:·,nbsp:⚋
 set noeol
 set shiftround
 set smarttab
@@ -205,3 +208,42 @@ imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 " F7 remove unused imports
 nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
 imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+" =========NERD TREE=============
+" open NERDTree automatically when vim starts up on opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+" close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&b:NERDTree.isTabTree()) | q | endif
+
+set guifont=Hurmit\ Nerd\ Font
+let g:airline_powerline_fonts = 1
+
+" loading the plugin 
+let g:webdevicons_enable = 1
+" adding the flags to NERDTree 
+let g:webdevicons_enable_nerdtree = 1
+" adding the custom source to unite 
+let g:webdevicons_enable_unite = 1
+" adding the column to vimfiler 
+let g:webdevicons_enable_vimfiler = 1
+" adding to vim-airline's tabline 
+let g:webdevicons_enable_airline_tabline = 1
+" adding to vim-airline's statusline 
+let g:webdevicons_enable_airline_statusline = 1
+" ctrlp glyphs
+let g:webdevicons_enable_ctrlp = 1
+" adding to flagship's statusline 
+let g:webdevicons_enable_flagship_statusline = 1
+" turn on/off file node glyph decorations (not particularly useful)
+let g:WebDevIconsUnicodeDecorateFileNodes = 1
+" use double-width(1) or single-width(0) glyphs 
+" only manipulates padding, has no effect on terminal or set(guifont) font
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+" whether or not to show the nerdtree brackets around flags 
+let g:webdevicons_conceal_nerdtree_brackets = 1
+" the amount of space to use after the glyph character (default ' ')
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+" Force extra padding in NERDTree so that the filetype icons line up
+" vertically 
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
