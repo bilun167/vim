@@ -1,20 +1,27 @@
 set nocompatible 
 filetype plugin indent on
 
+" set the runtime path to include Pathogen
+"execute pathogen#infect()
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
-Plugin 'rking/ag.vim'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'klen/python-mode'
-Plugin 'ap/vim-css-color'
-
+	Plugin 'rking/ag.vim'
+	Plugin 'terryma/vim-multiple-cursors'
+	Plugin 'hynek/vim-python-pep8-indent'
+	Plugin 'klen/python-mode'
+	Plugin 'ap/vim-css-color'
+	Plugin 'Valloric/YouCompleteMe'
+	Plugin 'file:///Users/thuynh/Code/zopim/vim-jxml'
+	Plugin 'MarcWeber/vim-addon-mw-utils'
+	Plugin 'tomtom/tlib_vim'
+	Plugin 'garbas/vim-snipmate'
+	Plugin 'honza/vim-snippets'
 call vundle#end() 
 
 filetype plugin indent on
-set backspace=2 
+set backspace=2
 syntax on
 set fileencodings=utf-8
 set fileencoding=utf-8
