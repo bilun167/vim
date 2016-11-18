@@ -1,4 +1,4 @@
-set nocompatible 
+set nocompatible
 filetype plugin indent on
 
 " set the runtime path to include Pathogen
@@ -18,6 +18,10 @@ call vundle#begin()
 	Plugin 'tomtom/tlib_vim'
 	Plugin 'garbas/vim-snipmate'
 	Plugin 'honza/vim-snippets'
+	Plugin 'artur-shaik/vim-javacomplete2'
+	Plugin 'tpope/vim-fugitive'
+	Plugin 'ctrlpvim/ctrlp.vim'
+	Plugin 'scrooloose/nerdtree'
 call vundle#end() 
 
 filetype plugin indent on
@@ -108,7 +112,6 @@ if executable('ag')
 	
 	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
 	let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
-
 	" ag is fast enough that CtrlP doesn't need to cache
 	let g:ctrlp_use_caching = 0
 	
@@ -188,3 +191,17 @@ set autoread        "Always reload buffer when external changes detected
 set viminfo=h,'500,<10000,s1000,/1000,:1000
 set updatecount=10                  "Save buffer every 10 chars typed
 
+" ==========JAVA stuffs===========
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" F4 trying to guess import option
+nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+" F5 will ask for import option
+nmap <F5> <Plug>(JavaComplete-Imports-Add)
+imap <F5> <Plug>(JavaComplete-Imports-Add)
+" F6 add all missing imports
+nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+" F7 remove unused imports
+nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
