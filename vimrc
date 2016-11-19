@@ -27,6 +27,9 @@ call vundle#begin()
 	Plugin 'vim-airline/vim-airline'
 	Plugin 'vim-airline/vim-airline-themes'
 	Plugin 'ryanoasis/vim-devicons'
+	Plugin 'majutsushi/tagbar'
+	Plugin 'scrooloose/nerdcommenter'
+	Plugin 'sjl/gundo.vim'
 call vundle#end() 
 
 filetype plugin indent on
@@ -38,12 +41,13 @@ set encoding=utf-8
 set tenc=utf-8
 set ruler
 set number
-
+" ===========SEARCH=================
 set incsearch
+set ignorecase
 set hlsearch
-nnoremap <silent> n n:call HLNext(0.4)<cr> 
+nnoremap <silent> n n:call HLNext(0.4)<cr>
 nnoremap <silent> N N:call HLNext(0.4)<cr>
-"=====[ Blink the matching line ]=============
+" Blink the matching line
 function! HLNext (blinktime) 
 	set invcursorline
 	redraw
@@ -53,12 +57,21 @@ function! HLNext (blinktime)
 endfunction
 
 set t_Co=256
-set hidden " hide buffers, not close
+" ============INDENTATION==============
 set backspace=indent,eol,start
 set autoindent
 set smartindent
 set cindent
 set copyindent
+
+" Whitespace stuff
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+:set list lcs=tab:\|\ ,trail:·,nbsp:⚋
+set noeol
+set shiftround
+set smarttab
 
 " And no shift magic on comments
 nnoremap <silent> >> :call ShiftLine()<CR>|
@@ -85,7 +98,7 @@ vmap <BS> x
 " Make vaa select the entire file...
 vmap aa VGo1G
 
-"=====[ Make arrow keys move visual blocks around ]======================
+"=====[ Make arrow keys move visual blocks around ]=====
 vmap <up>    <Plug>SchleppUp
 vmap <down>  <Plug>SchleppDown
 vmap <left>  <Plug>SchleppLeft
@@ -98,15 +111,6 @@ set showmatch
 set history=200
 set undolevels=200
 set pastetoggle=<F2>
-
-" Whitespace stuff
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set listchars=tab:\|\ ,trail:·,nbsp:⚋
-set noeol
-set shiftround
-set smarttab
 
 if executable('ag')
 	" Use Ag over Grep
@@ -139,6 +143,7 @@ function! InsertTabWrapper()
 		return "\<c-p>"
 	endif
 endfunction
+
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
 
@@ -180,6 +185,26 @@ set titleold=
 
 set nomore          "Don't page long listings
 
+" ===========BUFFER==============
+" This allows buffers to be hidden if has been modified
+set hidden
+
+" To open a new empty buffer. Replace :tabnew
+nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
+
 set autowrite       "Save buffer automatically when changing files
 set autoread        "Always reload buffer when external changes detected
 
@@ -207,7 +232,10 @@ nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 " F7 remove unused imports
 nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+"imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+" =========TAG BAR===============
+nmap <F8> :TagbarToggle<CR>
 
 " =========NERD TREE=============
 " open NERDTree automatically when vim starts up on opening a directory
@@ -218,6 +246,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&b:NERDTree.isTa
 
 set guifont=Hurmit\ Nerd\ Font
 let g:airline_powerline_fonts = 1
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 " loading the plugin 
 let g:webdevicons_enable = 1
@@ -244,6 +276,28 @@ let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
 " the amount of space to use after the glyph character (default ' ')
 let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-" Force extra padding in NERDTree so that the filetype icons line up
-" vertically 
+" Force extra padding in NERDTree so that the filetype icons line up vertically 
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+
+" ==========NERD COMMENTER==========
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code
+" indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
