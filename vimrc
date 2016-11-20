@@ -1,39 +1,34 @@
 set nocompatible
 filetype plugin indent on
 
+" ==============LEADER============
+let mapleader = ','
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+nnoremap <leader>a :Ag<space>
+nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeFind<CR>
+nnoremap <leader>t :CtrlP<CR>
+nnoremap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
+nnoremap <leader>] :TagbarToggle<CR>
+nnoremap <leader>g :GitGutterToggle<CR>
+noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+" in case you forgot to sudo
+cnoremap w!! %!sudo tee > /dev/null %
 " set the runtime path to include Pathogen
 "execute pathogen#infect()
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-	Plugin 'rking/ag.vim'
-	Plugin 'terryma/vim-multiple-cursors'
-	Plugin 'Yggdroot/indentLine'
-	Plugin 'hynek/vim-python-pep8-indent'
-	Plugin 'klen/python-mode'
-	Plugin 'ap/vim-css-color'
-	Plugin 'Valloric/YouCompleteMe'
-	Plugin 'file:///Users/thuynh/Code/zopim/vim-jxml'
-	Plugin 'MarcWeber/vim-addon-mw-utils'
-	Plugin 'tomtom/tlib_vim'
-	Plugin 'garbas/vim-snipmate'
-	Plugin 'honza/vim-snippets'
-	Plugin 'artur-shaik/vim-javacomplete2'
-	Plugin 'tpope/vim-fugitive'
-	Plugin 'ctrlpvim/ctrlp.vim'
-	Plugin 'scrooloose/nerdtree'
-	Plugin 'Xuyuanp/nerdtree-git-plugin'
-	Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-	Plugin 'vim-airline/vim-airline'
-	Plugin 'vim-airline/vim-airline-themes'
-	Plugin 'ryanoasis/vim-devicons'
-	Plugin 'majutsushi/tagbar'
-	Plugin 'scrooloose/nerdcommenter'
-	Plugin 'sjl/gundo.vim'
-	Plugin 'vim-syntastic/syntastic'
-	Plugin 'christoomey/vim-tmux-navigator'
-call vundle#end() 
+if filereadable(expand("~/.vimrc.bundles"))
+	source ~/.vimrc.bundles
+endif
+call vundle#end()
 
 filetype plugin indent on
 set backspace=2
@@ -257,30 +252,21 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 " ==========NERD COMMENTER==========
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
-
 " Use compact syntax for prettified multi-line comments
 let g:NERDCompactSexyComs = 1
-
-" Align line-wise comment delimiters flush left instead of following code
-" indentation
 let g:NERDDefaultAlign = 'left'
-
 " Set a language to use its alternate delimiters by default
 let g:NERDAltDelims_java = 1
-
 " Add your own custom formats or override the defaults
 let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
-
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
 " ==========CTRLP==========
 " Setup some default ignores
 let g:ctrlp_custom_ignore = {
@@ -307,10 +293,3 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
-" Use a leader instead of the actual named binding
-nmap <leader>p :CtrlP<cr>
-
-" Easy bindings for its various modes
-nmap <leader>bb :CtrlPBuffer<cr>
-nmap <leader>bm :CtrlPMixed<cr>
-nmap <leader>bs :CtrlPMRU<cr>
