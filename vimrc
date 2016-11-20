@@ -9,6 +9,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 	Plugin 'rking/ag.vim'
 	Plugin 'terryma/vim-multiple-cursors'
+	Plugin 'Yggdroot/indentLine'
 	Plugin 'hynek/vim-python-pep8-indent'
 	Plugin 'klen/python-mode'
 	Plugin 'ap/vim-css-color'
@@ -30,6 +31,8 @@ call vundle#begin()
 	Plugin 'majutsushi/tagbar'
 	Plugin 'scrooloose/nerdcommenter'
 	Plugin 'sjl/gundo.vim'
+	Plugin 'vim-syntastic/syntastic'
+	Plugin 'christoomey/vim-tmux-navigator'
 call vundle#end() 
 
 filetype plugin indent on
@@ -58,6 +61,10 @@ endfunction
 
 set t_Co=256
 " ============INDENTATION==============
+let g:indentLine_color_term = 239
+let g:indentLine_char = '┆'
+let g:indentLine_concealcursor = 'inc'
+let g:indentLine_conceallevel = 2
 set backspace=indent,eol,start
 set autoindent
 set smartindent
@@ -68,7 +75,7 @@ set copyindent
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-:set list lcs=tab:\|\ ,trail:·,nbsp:⚋
+:set list lcs=tab:\┆\ ,trail:·,nbsp:⚋
 set noeol
 set shiftround
 set smarttab
@@ -188,23 +195,6 @@ set nomore          "Don't page long listings
 " ===========BUFFER==============
 " This allows buffers to be hidden if has been modified
 set hidden
-
-" To open a new empty buffer. Replace :tabnew
-nmap <leader>T :enew<cr>
-
-" Move to the next buffer
-nmap <leader>l :bnext<CR>
-
-" Move to the previous buffer
-nmap <leader>h :bprevious<CR>
-
-" Close the current buffer and move to the previous one
-" This replicates the idea of closing a tab
-nmap <leader>bq :bp <BAR> bd #<CR>
-
-" Show all open buffers and their status
-nmap <leader>bl :ls<CR>
-
 set autowrite       "Save buffer automatically when changing files
 set autoread        "Always reload buffer when external changes detected
 
@@ -218,21 +208,6 @@ set autoread        "Always reload buffer when external changes detected
 "           v v    v      v     v     v
 set viminfo=h,'500,<10000,s1000,/1000,:1000
 set updatecount=10                  "Save buffer every 10 chars typed
-
-" ==========JAVA stuffs===========
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-" F4 trying to guess import option
-nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-" F5 will ask for import option
-nmap <F5> <Plug>(JavaComplete-Imports-Add)
-imap <F5> <Plug>(JavaComplete-Imports-Add)
-" F6 add all missing imports
-nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
-" F7 remove unused imports
-nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
-"imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
 
 " =========TAG BAR===============
 nmap <F8> :TagbarToggle<CR>
@@ -301,3 +276,41 @@ let g:NERDCommentEmptyLines = 1
 
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" ==========CTRLP==========
+" Setup some default ignores
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+" If a file is already open, open it again in a new pane 
+" instead of switching to the existing pane
+let g:ctrlp_switch_buffer = 'et'
+
+" Use the nearest .git directory as the cwd
+" This makes a lot of sense if you are working on a project that is in version
+" control. It also supports works with .svn, .hg, .bzr.
+let g:ctrlp_working_path_mode = 'r'
+
+" Ignore files
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll|swp)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" Use a leader instead of the actual named binding
+nmap <leader>p :CtrlP<cr>
+
+" Easy bindings for its various modes
+nmap <leader>bb :CtrlPBuffer<cr>
+nmap <leader>bm :CtrlPMixed<cr>
+nmap <leader>bs :CtrlPMRU<cr>
