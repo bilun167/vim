@@ -11,7 +11,7 @@ nnoremap <leader>a :Ag<space>
 nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>f :NERDTreeFind<CR>
-nnoremap <leader>t :CtrlP<CR>
+nnoremap <leader>t :CtrlPTag<CR>
 nnoremap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
 nnoremap <leader>] :TagbarToggle<CR>
 nnoremap <leader>g :GitGutterToggle<CR>
@@ -21,7 +21,7 @@ noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo '
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
 " set the runtime path to include Pathogen
-"execute pathogen#infect()
+execute pathogen#infect()
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -236,17 +236,17 @@ let g:webdevicons_enable_airline_tabline = 1
 let g:webdevicons_enable_airline_statusline = 1
 " ctrlp glyphs
 let g:webdevicons_enable_ctrlp = 1
-" adding to flagship's statusline 
+" adding to flagship's statusline
 let g:webdevicons_enable_flagship_statusline = 1
 " turn on/off file node glyph decorations (not particularly useful)
 let g:WebDevIconsUnicodeDecorateFileNodes = 1
 " use double-width(1) or single-width(0) glyphs 
 " only manipulates padding, has no effect on terminal or set(guifont) font
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 0
 " whether or not to show the nerdtree brackets around flags 
 let g:webdevicons_conceal_nerdtree_brackets = 1
 " the amount of space to use after the glyph character (default ' ')
-let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 " Force extra padding in NERDTree so that the filetype icons line up vertically 
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 
@@ -268,6 +268,10 @@ let g:NERDTrimTrailingWhitespace = 1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 " ==========CTRLP==========
 " Setup some default ignores
 let g:ctrlp_custom_ignore = {
@@ -315,4 +319,18 @@ endif
 
 " Don't copy the contents of an overwritten selection.
 vnoremap p "_dP
+
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+let &titlestring = expand('%:p')
+set title
+
+set tags=./.git/tags,tags;$HOME
+
+" ============MARKDOWN=============
+let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
 
