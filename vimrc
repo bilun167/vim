@@ -1,6 +1,5 @@
 set nocompatible
-filetype plugin indent on
-
+filetype off
 " ==============LEADER============
 let mapleader = ','
 noremap <C-h> <C-w>h
@@ -17,20 +16,20 @@ nnoremap <leader>] :TagbarToggle<CR>
 nnoremap <leader>g :GitGutterToggle<CR>
 nnoremap <leader>u :UndotreeToggle<cr>
 noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
+" ===========PATHOGEN=============
 " set the runtime path to include Pathogen
 execute pathogen#infect()
-
+" ============VUNDLE==============
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/home/thuynh/.vim/bundle/Vundle.vim
 call vundle#begin()
 if filereadable(expand("~/.vimrc.bundles"))
 	source ~/.vimrc.bundles
 endif
 call vundle#end()
-
+" ===Set Filetype After VUNDLE===
 filetype plugin indent on
 set backspace=2
 syntax on
@@ -40,6 +39,21 @@ set encoding=utf-8
 set tenc=utf-8
 set ruler
 set number
+" ===========COLOR SCHEME============
+au BufReadPost,BufNewFile *.twig colorscheme koehler 
+au BufReadPost,BufNewFile *.css colorscheme slate
+au BufReadPost,BufNewFile *.js colorscheme slate2
+au BufReadPost,BufNewFile *.py colorscheme molokaiyo
+au BufReadPost,BufNewFile *.html colorscheme monokai
+au BufReadPost,BufNewFile *.java colorscheme monokai
+" ====Commenting blocks of code=====
+" This specifies the comment character when specifying block comments.
+autocmd FileType c,cpp,java,scala let b:comment_leader = '//'
+autocmd FileType sh,ruby,python   let b:comment_leader = '#'
+autocmd FileType conf,fstab       let b:comment_leader = '#'
+autocmd FileType tex              let b:comment_leader = '%'
+autocmd FileType mail             let b:comment_leader = '>'
+autocmd FileType vim              let b:comment_leader = '"'
 " ===========SEARCH=================
 set incsearch
 set ignorecase
@@ -334,3 +348,8 @@ let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
 
+" ===========JSX==================
+" you would like JSX in .js files
+let g:jsx_ext_required = 0
+" Restrict JSX to files with the pre-v0.12 @jsx React.DOM pragma
+let g:jsx_pragma_required = 1
