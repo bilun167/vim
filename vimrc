@@ -353,3 +353,5 @@ let g:vim_markdown_json_frontmatter = 1
 let g:jsx_ext_required = 0
 " Restrict JSX to files with the pre-v0.12 @jsx React.DOM pragma
 let g:jsx_pragma_required = 1
+" =====For plugin/autoswap.vim===
+set title titlestring=
