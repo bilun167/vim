@@ -40,12 +40,12 @@ set tenc=utf-8
 set ruler
 set number
 " ===========COLOR SCHEME============
-au BufReadPost,BufNewFile *.twig colorscheme koehler 
-au BufReadPost,BufNewFile *.css colorscheme slate
-au BufReadPost,BufNewFile *.js colorscheme slate2
-au BufReadPost,BufNewFile *.py colorscheme molokaiyo
-au BufReadPost,BufNewFile *.html colorscheme monokai
-au BufReadPost,BufNewFile *.java colorscheme monokai
+" au BufReadPost,BufNewFile *.twig colorscheme koehler
+" au BufReadPost,BufNewFile *.css colorscheme slate
+" au BufReadPost,BufNewFile *.js colorscheme slate2
+" au BufReadPost,BufNewFile *.py colorscheme molokaiyo
+" au BufReadPost,BufNewFile *.html colorscheme monokai
+" au BufReadPost,BufNewFile *.java colorscheme monokai
 " ====Commenting blocks of code=====
 " This specifies the comment character when specifying block comments.
 autocmd FileType c,cpp,java,scala let b:comment_leader = '//'
@@ -287,11 +287,6 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " ==========CTRLP==========
-" Setup some default ignores
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-\}
 " If a file is already open, open it again in a new pane 
 " instead of switching to the existing pane
 let g:ctrlp_switch_buffer = 'et'
@@ -302,17 +297,14 @@ let g:ctrlp_switch_buffer = 'et'
 let g:ctrlp_working_path_mode = 'r'
 
 " Ignore files
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|swp)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" let g:ctrlp_user_command = 'find %s -type f'
 let g:ctrlp_match_window = 'order:ttb,max:20'
-
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
 "============TMUX============
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
@@ -340,6 +332,8 @@ let &titlestring = expand('%:p')
 set title
 
 set tags=./.git/tags,tags;$HOME
+set tags+=$HOME/tags/java.tags
+set autochdir
 
 " ============MARKDOWN=============
 let g:vim_markdown_folding_style_pythonic = 1
@@ -355,3 +349,5 @@ let g:jsx_ext_required = 0
 let g:jsx_pragma_required = 1
 " =====For plugin/autoswap.vim===
 set title titlestring=
+" ========XML Highlighting=======
+au BufReadPost *.jxml set syntax=javascript
