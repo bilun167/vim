@@ -7,15 +7,15 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 nnoremap <leader>a :Ag<space>
-nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <Leader>q :Bdelete<CR>
 nnoremap <leader>d :NERDTreeToggle<CR>
-nnoremap <leader>f :NERDTreeFind<CR>
-nnoremap <leader>t :CtrlPTag<CR>
-nnoremap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
+nnoremap <leader>CC :CtrlPClearCache<CR>:CtrlP<CR>
 nnoremap <leader>] :TagbarToggle<CR>
 nnoremap <leader>g :GitGutterToggle<CR>
 nnoremap <leader>u :UndotreeToggle<cr>
 noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+nnoremap <leader>bq :Bdelete<CR>
+
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
 " ===========PATHOGEN=============
@@ -141,7 +141,7 @@ if executable('ag')
 	
 	if !exists(":Ag")
 		command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-		nnoremap \ :Ag<SPACE>
+		" nnoremap \ :Ag<SPACE>
 	endif
 endif
 
@@ -222,6 +222,15 @@ set updatecount=10                  "Save buffer every 10 chars typed
 " =========TAG BAR===============
 nmap <F8> :TagbarToggle<CR>
 
+" =========AIRLINE==========
+let g:airline_powerline_fonts = 1
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+" Show buffer number
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
 " =========NERD TREE=============
 " open NERDTree automatically when vim starts up on opening a directory
 autocmd StdinReadPre * let s:std_in=1
@@ -230,11 +239,6 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&b:NERDTree.isTabTree()) | q | endif
 
 set guifont=Hurmit\ Nerd\ Font
-let g:airline_powerline_fonts = 1
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
 
 " loading the plugin 
 let g:webdevicons_enable = 1
@@ -282,6 +286,7 @@ let g:NERDTrimTrailingWhitespace = 1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+let g:ycm_register_as_syntastic_checker = 0
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -290,7 +295,8 @@ let g:syntastic_check_on_wq = 0
 " If a file is already open, open it again in a new pane 
 " instead of switching to the existing pane
 let g:ctrlp_switch_buffer = 'et'
-
+" Look for filenames
+let g:ctrlp_by_filename = '1'
 " Use the nearest .git directory as the cwd
 " This makes a lot of sense if you are working on a project that is in version
 " control. It also supports works with .svn, .hg, .bzr.
@@ -305,6 +311,10 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
   \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
 \}
+" Make CTRL+B open buffers
+nnoremap <C-b> :CtrlPBuffer<CR>
+" Make CTRL+F open Most Recently Used files
+nnoremap <C-f> :CtrlPMRU<CR>
 "============TMUX============
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
@@ -351,3 +361,48 @@ let g:jsx_pragma_required = 1
 set title titlestring=
 " ========XML Highlighting=======
 au BufReadPost *.jxml set syntax=javascript
+
+"enable keyboard shortcuts
+let g:tern_map_keys=1
+"show argument hints
+let g:tern_show_argument_hints='on_hold'
+
+" Highlight current line number {{{
+hi CursorLineNR cterm=bold ctermfg=220
+augroup CLNRSet
+	autocmd! ColorScheme * hi CursorLineNR cterm=bold ctermfg=220
+	augroup END
+" }}}
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+nmap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+nmap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+nmap <leader>jii <Plug>(JavaComplete-Imports-Add)
+
+imap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
+imap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
+imap <C-j>ii <Plug>(JavaComplete-Imports-Add)
+
+nmap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+
+imap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+
+nmap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+nmap <leader>jts <Plug>(JavaComplete-Generate-ToString)
+nmap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+nmap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
+nmap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+
+imap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
+imap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
+imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+
+vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)

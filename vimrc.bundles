@@ -2,37 +2,54 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'rking/ag.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'Yggdroot/indentLine'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'easymotion/vim-easymotion'
+" Python stuffs
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'klen/python-mode'
-Plugin 'ap/vim-css-color'
-Plugin 'git@github.com:zopim/vim-jxml.git'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
+" Snippets
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
-Plugin 'tpope/vim-fugitive'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'Raimondi/delimitMate'
+" Trees & Bars
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ryanoasis/vim-devicons'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'sjl/gundo.vim'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'airblade/vim-gitgutter'
 Plugin 'mbbill/undotree'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'w0ng/vim-hybrid'
+" Javascript stuffs
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'ternjs/tern_for_vim' "autocomplete
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'git@github.com:zopim/vim-jxml.git'
+Plugin 'elzr/vim-json'
+" CSS
+Plugin 'ap/vim-css-color'
+Plugin 'mattn/emmet-vim'
+" Syntax Checking
+Plugin 'vim-syntastic/syntastic'
+" Tmux
+Plugin 'christoomey/vim-tmux-navigator'
+" Git
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tomtom/tlib_vim'
+Plugin 'tpope/vim-fugitive'
+" CTags
 Plugin 'szw/vim-tags'
 Plugin 'craigemery/vim-autotag'
-Plugin 'elzr/vim-json'
-Plugin 'mattn/emmet-vim'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'ternjs/tern_for_vim'
+" Load vim-devicons before ctrlp
+" https://github.com/ryanoasis/vim-devicons/issues/183
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'ctrlpvim/ctrlp.vim'
+
+Plugin 'moll/vim-bbye'
+
+Plugin 'artur-shaik/vim-javacomplete2'
