@@ -1,55 +1,88 @@
-Plugin 'gmarik/Vundle.vim'
-Plugin 'rking/ag.vim'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'Yggdroot/indentLine'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'easymotion/vim-easymotion'
-" Python stuffs
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'klen/python-mode'
-" Snippets
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-Plugin 'Raimondi/delimitMate'
-" Trees & Bars
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'sjl/gundo.vim'
-Plugin 'mbbill/undotree'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'w0ng/vim-hybrid'
-" Javascript stuffs
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'ternjs/tern_for_vim' "autocomplete
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'git@github.com:zopim/vim-jxml.git'
-Plugin 'elzr/vim-json'
-" CSS
-Plugin 'ap/vim-css-color'
-Plugin 'mattn/emmet-vim'
-" Syntax Checking
-Plugin 'vim-syntastic/syntastic'
-" Tmux
-Plugin 'christoomey/vim-tmux-navigator'
-" Git
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tomtom/tlib_vim'
-Plugin 'tpope/vim-fugitive'
-" CTags
-Plugin 'szw/vim-tags'
-Plugin 'craigemery/vim-autotag'
-" Load vim-devicons before ctrlp
-" https://github.com/ryanoasis/vim-devicons/issues/183
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'ctrlpvim/ctrlp.vim'
+if &compatible
+	set nocompatible
+end
 
-Plugin 'moll/vim-bbye'
+" Shim command and function to allow migration from Vundle to vim-plug.
+function! VundleToPlug(vundle_command, arg, ...)
+  echom "You are using Vundle's `".a:vundle_command."` command to declare plugins. Dotfiles now uses vim-plug for plugin management. Please rename uses of `".a:vundle_command."` to `Plug`. Plugin was '".a:arg."'."
+  let vim_plug_options = {}
 
-Plugin 'artur-shaik/vim-javacomplete2'
+  if a:0 > 0
+    if has_key(a:1, 'name')
+      let name = a:1.name
+      let vim_plug_options.dir = "$HOME/.vim/bundle/".a:1.name
+    endif
+
+    if has_key(a:1, 'rtp')
+      let vim_plug_options.rtp = a:1.rtp
+    endif
+  endif
+
+  Plug a:arg, vim_plug_options
+endfunction
+
+com! -nargs=+  -bar Plugin call VundleToPlug("Plugin", <args>)
+com! -nargs=+  -bar Bundle call VundleToPlug("Bundle", <args>)
+
+call plug#begin('~/.vim/bundle')
+	Plug 'gmarik/Vundle.vim'
+	Plug 'rking/ag.vim'
+	Plug 'terryma/vim-multiple-cursors'
+	Plug 'Yggdroot/indentLine'
+	Plug 'MarcWeber/vim-addon-mw-utils'
+	Plug 'easymotion/vim-easymotion'
+	" Python stuffs
+	Plug 'hynek/vim-python-pep8-indent'
+	Plug 'klen/python-mode'
+	" Snippets
+	Plug 'garbas/vim-snipmate'
+	Plug 'honza/vim-snippets'
+	Plug 'Raimondi/delimitMate'
+	" Trees & Bars
+	Plug 'scrooloose/nerdtree'
+	Plug 'Xuyuanp/nerdtree-git-plugin'
+	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'majutsushi/tagbar'
+	Plug 'scrooloose/nerdcommenter'
+	Plug 'sjl/gundo.vim'
+	Plug 'mbbill/undotree'
+	Plug 'godlygeek/tabular'
+	Plug 'plasticboy/vim-markdown'
+	Plug 'w0ng/vim-hybrid'
+	" Javascript stuffs
+	Plug 'jelera/vim-javascript-syntax'
+	Plug 'ternjs/tern_for_vim' "autocomplete
+	Plug 'pangloss/vim-javascript'
+	Plug 'mxw/vim-jsx'
+	Plug 'git@github.com:zopim/vim-jxml.git'
+	Plug 'elzr/vim-json'
+	" CSS
+	Plug 'ap/vim-css-color'
+	Plug 'mattn/emmet-vim'
+	" Syntax Checking
+	Plug 'vim-syntastic/syntastic'
+	" Tmux
+	Plug 'christoomey/vim-tmux-navigator'
+	" Git
+	Plug 'airblade/vim-gitgutter'
+	Plug 'tomtom/tlib_vim'
+	Plug 'tpope/vim-fugitive'
+	" CTags
+	Plug 'szw/vim-tags'
+	Plug 'craigemery/vim-autotag'
+	" Load vim-devicons before ctrlp
+	" https://github.com/ryanoasis/vim-devicons/issues/183
+	Plug 'ryanoasis/vim-devicons'
+	Plug 'ctrlpvim/ctrlp.vim'
+	
+	Plug 'moll/vim-bbye'
+	
+	Plug 'artur-shaik/vim-javacomplete2'
+	
+	if filereadable(expand("~/.vimrc.bundles.local"))
+		source ~/.vimrc.bundles.local
+	endif
+call plug#end()
+

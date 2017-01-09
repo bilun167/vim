@@ -1,5 +1,18 @@
-set nocompatible
 filetype off
+set backspace=2   " Backspace deletes like most programs in insert mode
+set nobackup
+set nowritebackup
+set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
+set ruler         " show the cursor position all the time
+set showcmd       " display incomplete commands
+set incsearch     " do incremental searching
+set laststatus=2  " Always display the status line
+set showmatch
+set history=200
+set undolevels=200
+set pastetoggle=<F2>
+set relativenumber
+set number
 " ==============LEADER============
 let mapleader = ','
 noremap <C-h> <C-w>h
@@ -18,27 +31,17 @@ nnoremap <leader>bq :Bdelete<CR>
 
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
-" ===========PATHOGEN=============
-" set the runtime path to include Pathogen
-execute pathogen#infect()
-" ============VUNDLE==============
-" set the runtime path to include Vundle and initialize
-set rtp+=/home/thuynh/.vim/bundle/Vundle.vim
-call vundle#begin()
+
 if filereadable(expand("~/.vimrc.bundles"))
 	source ~/.vimrc.bundles
 endif
-call vundle#end()
-" ===Set Filetype After VUNDLE===
+" ===Set Filetype After Plug===
 filetype plugin indent on
-set backspace=2
 syntax on
 set fileencodings=utf-8
 set fileencoding=utf-8
 set encoding=utf-8
 set tenc=utf-8
-set ruler
-set number
 " ===========COLOR SCHEME============
 " au BufReadPost,BufNewFile *.twig colorscheme koehler
 " au BufReadPost,BufNewFile *.css colorscheme slate
@@ -64,9 +67,9 @@ nnoremap <silent> N N:call HLNext(0.4)<cr>
 function! HLNext (blinktime) 
 	set invcursorline
 	redraw
-	exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm' 
+	exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
 	set invcursorline
-	redraw 
+	redraw
 endfunction
 
 set t_Co=256
@@ -123,11 +126,6 @@ vmap <right> <Plug>SchleppRight
 
 vmap D       <Plug>SchleppDupLeft
 vmap <C-D>   <Plug>SchleppDupLeft
-
-set showmatch
-set history=200
-set undolevels=200
-set pastetoggle=<F2>
 
 if executable('ag')
 	" Use Ag over Grep
