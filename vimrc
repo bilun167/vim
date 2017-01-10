@@ -227,7 +227,7 @@ let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 " Show buffer number
-let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#buffer_nr_show = 0
 
 " =========NERD TREE=============
 " open NERDTree automatically when vim starts up on opening a directory
@@ -280,10 +280,18 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
+set laststatus=2
+set statusline=
+set statusline +=%1*\ %n\ %*            "buffer number
+set statusline +=%5*%{&ff}%*            "file format
+set statusline +=%3*%y%*                "file type
+set statusline +=%4*\ %<%F%*            "full path
+set statusline +=%2*%m%*                "modified flag
+set statusline +=%1*%=%5l%*             "current line
+set statusline +=%2*/%L%*               "total lines
+set statusline +=%1*%4v\ %*             "virtual column number
+set statusline +=%2*0x%04B\ %*          "character under cursor"
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 let g:ycm_register_as_syntastic_checker = 0
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -302,7 +310,8 @@ let g:ctrlp_working_path_mode = 'r'
 
 " Ignore files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 " let g:ctrlp_user_command = 'find %s -type f'
 let g:ctrlp_match_window = 'order:ttb,max:20'
 let g:ctrlp_custom_ignore = {
@@ -344,7 +353,7 @@ set tags+=$HOME/tags/java.tags
 set autochdir
 
 " ============MARKDOWN=============
-let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_folding_style_pythonic = 4
 let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
@@ -404,3 +413,36 @@ imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
 vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
 vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+
+" Python
+let g:pymode = 1
+let g:pymode_warnings = 1
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options = 1
+let g:pymode_options_max_line_length = 79
+let g:pymode_folding = 4
+let g:pymode_motion = 1
+let g:pymode_doc = 1
+let g:pymode_virtualenv = 1
+let g:pymode_virtualenv_path = $VIRTUAL_ENV
+let g:pymode_run = 1
+let g:pymode_run_bind = '<leader>r'
+let g:pymode_breakpoint_bind = '<leader>b'
+let g:pymode_breakpoint_cmd = ''
+let g:pymode_lint = 1
+let g:pymode_lint_unmodified = 0
+let g:pymode_lint_on_fly = 0
+let g:pymode_lint_message = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+let g:pymode_lint_sort = ['E', 'C', 'I']
+let g:pymode_lint_cwindow = 1
+let g:pymode_lint_signs = 1
+
+let g:pymode_rope = 1
+" Completion
+let g:pymode_rope_completion = 1
+let g:pymode_rope_completion_bind = '<C-Space>'
+let g:pymode_rope_complete_on_dot = 1
+let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
+let g:pymode_rope_autoimport_import_after_complete = 0
+
