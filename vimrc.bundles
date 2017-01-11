@@ -72,7 +72,6 @@ call plug#begin('~/.vim/bundle')
 	Plug 'mattn/emmet-vim'
 	" Syntax Checking
 	Plug 'vim-syntastic/syntastic'
-	Plug 'scrooloose/syntastic'
 " {{{
 	let g:syntastic_enable_signs          = 1
 	let g:syntastic_enable_highlighting   = 1
@@ -106,6 +105,7 @@ call plug#begin('~/.vim/bundle')
 		nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
 		nnoremap <silent> <Leader>gt :GitGutterToggle<CR>
 		nnoremap <silent> <Leader>ga :GitGutterAll<CR>
+		nnoremap <silent> <Leader>gs :GitGutterStageHunk
 " }}}
 	Plug 'esneider/YUNOcommit.vim'
 	Plug 'tomtom/tlib_vim'
