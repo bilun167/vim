@@ -436,3 +436,13 @@ command! FollowSymlink call MyFollowSymlink()
 command! ToggleFollowSymlink let w:no_resolve_symlink = !get(w:, 'no_resolve_symlink', 0) | echo "w:no_resolve_symlink =>" w:no_resolve_symlink
 au BufReadPost * nested call MyFollowSymlink(expand('%'))
 "}}}
+
+" Delete all hidden buffers
+nnoremap <silent> <Leader><BS> :call DeleteHiddenBuffers()<CR>
+function! DeleteHiddenBuffers() " {{{
+  let tpbl=[]
+  call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+    silent execute 'bwipeout' buf
+  endfor
+endfunction " }}}

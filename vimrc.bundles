@@ -139,9 +139,24 @@ call plug#begin('~/.vim/bundle')
 	Plug 'ctrlpvim/ctrlp.vim'
 	
 	Plug 'moll/vim-bbye'
-	
+	Plug 'tpope/vim-eunuch'
 	Plug 'artur-shaik/vim-javacomplete2'
-	
+	Plug 'janko-m/vim-test'
+	" {{{
+		function! TerminalSplitStrategy(cmd) abort
+			tabnew | call termopen(a:cmd) | startinsert
+		endfunction
+		let g:test#custom_strategies = get(g:, 'test#custom_strategies', {})
+		let g:test#custom_strategies.terminal_split = function('TerminalSplitStrategy')
+		let test#strategy = 'terminal_split'
+
+		nnoremap <silent> <leader>rc :TestFile<CR>
+		nnoremap <silent> <leader>rf :TestNearest<CR>
+		nnoremap <silent> <leader>rs :TestSuite<CR>
+		nnoremap <silent> <leader>rl :TestLast<CR>
+		nnoremap <silent> <leader>rv :TestVisit<CR>
+	" }}}
+
 	if filereadable(expand("~/.vimrc.bundles.local"))
 		source ~/.vimrc.bundles.local
 	endif
