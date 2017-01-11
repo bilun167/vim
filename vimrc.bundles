@@ -2,38 +2,35 @@ if &compatible
 	set nocompatible
 end
 
-" Shim command and function to allow migration from Vundle to vim-plug.
-function! VundleToPlug(vundle_command, arg, ...)
-  echom "You are using Vundle's `".a:vundle_command."` command to declare plugins. Dotfiles now uses vim-plug for plugin management. Please rename uses of `".a:vundle_command."` to `Plug`. Plugin was '".a:arg."'."
-  let vim_plug_options = {}
+" Autoinstall vim-plug {{{
+if empty(glob('~/.nvim/autoload/plug.vim'))
+	silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.viuautocmd VimEnter * PlugInstall
+endif
+" }}}
 
-  if a:0 > 0
-    if has_key(a:1, 'name')
-      let name = a:1.name
-      let vim_plug_options.dir = "$HOME/.vim/bundle/".a:1.name
-    endif
-
-    if has_key(a:1, 'rtp')
-      let vim_plug_options.rtp = a:1.rtp
-    endif
-  endif
-
-  Plug a:arg, vim_plug_options
+function! TweakIndentLine(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+	if a:info.status == 'installed'
+		let g:indentLine_color_term = 239
+		let g:indentLine_char = '┆'
+		let g:indentLine_concealcursor = 'inc'
+		let g:indentLine_conceallevel = 2
+	endif
 endfunction
 
-com! -nargs=+  -bar Plugin call VundleToPlug("Plugin", <args>)
-com! -nargs=+  -bar Bundle call VundleToPlug("Bundle", <args>)
-
 call plug#begin('~/.vim/bundle')
-	Plug 'gmarik/Vundle.vim'
 	Plug 'rking/ag.vim'
 	Plug 'terryma/vim-multiple-cursors'
-	Plug 'Yggdroot/indentLine'
+	Plug 'Yggdroot/indentLine', { 'do': function('TweakIndentLine') }
 	Plug 'MarcWeber/vim-addon-mw-utils'
 	Plug 'easymotion/vim-easymotion'
 	" Python stuffs
-	Plug 'hynek/vim-python-pep8-indent'
-	Plug 'klen/python-mode'
+	Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+	Plug 'klen/python-mode', { 'for': 'python' }
 	" Snippets
 	Plug 'garbas/vim-snipmate'
 	Plug 'honza/vim-snippets'
@@ -49,7 +46,7 @@ call plug#begin('~/.vim/bundle')
 	Plug 'sjl/gundo.vim'
 	Plug 'mbbill/undotree'
 	Plug 'godlygeek/tabular'
-	Plug 'plasticboy/vim-markdown'
+	Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 	Plug 'w0ng/vim-hybrid'
 	" Javascript stuffs
 	Plug 'jelera/vim-javascript-syntax'
@@ -85,4 +82,3 @@ call plug#begin('~/.vim/bundle')
 		source ~/.vimrc.bundles.local
 	endif
 call plug#end()
-

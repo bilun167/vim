@@ -39,7 +39,6 @@ endif
 filetype plugin indent on
 syntax on
 set fileencodings=utf-8
-set fileencoding=utf-8
 set encoding=utf-8
 set tenc=utf-8
 " ===========COLOR SCHEME============
@@ -74,10 +73,6 @@ endfunction
 
 set t_Co=256
 " ============INDENTATION==============
-let g:indentLine_color_term = 239
-let g:indentLine_char = '┆'
-let g:indentLine_concealcursor = 'inc'
-let g:indentLine_conceallevel = 2
 set backspace=indent,eol,start
 set autoindent
 set smartindent
@@ -415,6 +410,9 @@ vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
 vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 
 " Python
+set foldmethod=indent
+set foldnestmax=2
+set foldlevel=4
 let g:pymode = 1
 let g:pymode_warnings = 1
 let g:pymode_trim_whitespaces = 1
