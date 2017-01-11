@@ -96,10 +96,7 @@ endfunction
 
 " Square up visual selections...
 set virtualedit=block
-
-" Make BS/DEL work as expected in visual modes (i.e. delete the selected text)
-vmap <BS> x
-
+set backspace=indent,eol,start
 " Make vaa select the entire file...
 vmap aa VGo1G
 
@@ -227,31 +224,6 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 set laststatus=2
-" ==========CTRLP==========
-" If a file is already open, open it again in a new pane 
-" instead of switching to the existing pane
-let g:ctrlp_switch_buffer = 'et'
-" Look for filenames
-let g:ctrlp_by_filename = '1'
-" Use the nearest .git directory as the cwd
-" This makes a lot of sense if you are working on a project that is in version
-" control. It also supports works with .svn, .hg, .bzr.
-let g:ctrlp_working_path_mode = 'r'
-
-" Ignore files
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-" let g:ctrlp_user_command = 'find %s -type f'
-let g:ctrlp_match_window = 'order:ttb,max:20'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-\}
-" Make CTRL+B open buffers
-nnoremap <C-b> :CtrlPBuffer<CR>
-" Make CTRL+F open Most Recently Used files
-nnoremap <C-f> :CtrlPMRU<CR>
 "============TMUX============
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a

@@ -10,6 +10,11 @@ if empty(glob('~/.nvim/autoload/plug.vim'))
 endif
 " }}}
 
+" After a re-source, fix syntax matching issues (concealing brackets):
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+endif
+
 call plug#begin('~/.vim/bundle')
 	Plug 'rking/ag.vim'
 	Plug 'terryma/vim-multiple-cursors'
@@ -59,6 +64,9 @@ call plug#begin('~/.vim/bundle')
 	"}}}
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'majutsushi/tagbar'
+	"{{{
+		let g:tagbar_autopreview = 1
+	"}}}
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'mbbill/undotree'
 	Plug 'godlygeek/tabular'
@@ -148,31 +156,53 @@ call plug#begin('~/.vim/bundle')
 		augroup END
 " }}}
 
+	Plug 'ctrlpvim/ctrlp.vim'
+	"{{{
+		nnoremap <C-b> :CtrlPBuffer<CR>
+		nnoremap <C-f> :CtrlPMRU<CR>
+		" If a file is already open, open it again 
+		"in a new pane instead of switching to the existing pane
+		let g:ctrlp_switch_buffer = 'et'
+		let g:ctrlp_by_filename = '1' " Look for filenames
+		" Use the nearest .git directory as the cwd
+		" This makes a lot of sense if you are working on a project that is in version
+		" control. It also supports works with .svn, .hg, .bzr.
+		let g:ctrlp_working_path_mode = 'r'
+
+		" Ignore files
+		set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+		" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+		let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+		" let g:ctrlp_user_command = 'find %s -type f'
+		let g:ctrlp_match_window = 'order:ttb,max:20'
+		let g:ctrlp_custom_ignore = {
+			\ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+			\ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+		\}
+	"}}}
 	" CTags
 	Plug 'szw/vim-tags'
 	Plug 'craigemery/vim-autotag'
-	" Load vim-devicons before ctrlp
-	" https://github.com/ryanoasis/vim-devicons/issues/183
+	" Load devicons before ctrlp https://github.com/ryanoasis/vim-devicons/issues/183
+	" Load devicons after NERDTree, airline, ctrlP
 	Plug 'ryanoasis/vim-devicons'
 	"{{{
-	let g:webdevicons_enable = 1
-	let g:webdevicons_enable_nerdtree = 1           " add flags to NERDTree
-	let g:webdevicons_enable_unite = 1              " add custom source to unite
-	let g:webdevicons_enable_vimfiler = 0           " add column to vimfiler
-	let g:webdevicons_enable_airline_tabline = 1    " add to airline's tabline
-	let g:webdevicons_enable_airline_statusline = 1 " add to airline's statusline
-	let g:webdevicons_enable_ctrlp = 1              " ctrlp glyphs
-	let g:webdevicons_enable_flagship_statusline = 1 " adding to flagship's statusline
-	let g:Webdeviconsunicodedecoratefilenodes = 1   " file node glyph decorations
-	let g:Webdeviconsunicodeglyphdoublewidth = 0    " only manipulates padding
-	let g:webdevicons_conceal_nerdtree_brackets = 0 " show nerdtree brackets around flags
-	let g:Webdeviconsnerdtreeafterglyphpadding = '' " the amount of space to use after the glyph character (default ' ')
-	let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1 " Force extra padding in NERDTree so that the filetype icons line up vertically 
-	"}}} 
-	Plug 'ctrlpvim/ctrlp.vim'
-	
-	Plug 'moll/vim-bbye'
-	Plug 'tpope/vim-eunuch'
+		let g:webdevicons_enable = 1
+		let g:WebDevIconsOS = 'Darwin'
+		let g:webdevicons_enable_nerdtree = 1           " add flags to NERDTree
+		let g:webdevicons_enable_airline_tabline = 1    " add to airline's tabline
+		let g:webdevicons_enable_airline_statusline = 1 " add to airline's statusline
+		let g:webdevicons_enable_ctrlp = 1              " ctrlp glyphs
+		let g:WebDevIconsUnicodeDecorateFileNodes = 1   " file node glyph decorations
+		let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+		let g:DevIconsEnableFoldersOpenClose = 1
+		let g:WebDevIconsUnicodeGlyphDoubleWidth = 1    " only manipulates padding
+		let g:webdevicons_conceal_nerdtree_brackets = 0 " show nerdtree brackets around flags
+		let g:WebDevIconsNerdTreeAfterGlyphPadding = '' " the amount of space to use after the glyph character (default ' ')
+		let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1 " Force extra padding in NERDTree so that the filetype icons line up vertically 
+	"}}}
+	Plug 'moll/vim-bbye'    " Buffer bye
+	Plug 'tpope/vim-eunuch' " Vim sugar for the UNIX shell commands
 	Plug 'artur-shaik/vim-javacomplete2'
 	Plug 'janko-m/vim-test'
 	" {{{
