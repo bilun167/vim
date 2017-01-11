@@ -29,6 +29,10 @@ call plug#begin('~/.vim/bundle')
 	Plug 'garbas/vim-snipmate'
 	Plug 'honza/vim-snippets'
 	Plug 'Raimondi/delimitMate'
+	" {{{
+		let delimitMate_expand_cr = 2
+		let delimitMate_expand_space = 1 " {|} => { | }
+	" }}}
 	" Trees & Bars
 	Plug 'scrooloose/nerdtree'
 	" {{{
@@ -105,7 +109,7 @@ call plug#begin('~/.vim/bundle')
 		nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
 		nnoremap <silent> <Leader>gt :GitGutterToggle<CR>
 		nnoremap <silent> <Leader>ga :GitGutterAll<CR>
-		nnoremap <silent> <Leader>gs :GitGutterStageHunk
+		nnoremap <silent> <Leader>sh :GitGutterStageHunk
 " }}}
 	Plug 'esneider/YUNOcommit.vim'
 	Plug 'tomtom/tlib_vim'
