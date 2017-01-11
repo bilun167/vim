@@ -206,16 +206,6 @@ set updatecount=10                  "Save buffer every 10 chars typed
 
 " =========TAG BAR===============
 nmap <F8> :TagbarToggle<CR>
-
-" =========AIRLINE==========
-let g:airline_powerline_fonts = 1
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
-" Show buffer number
-let g:airline#extensions#tabline#buffer_nr_show = 0
-
 " =========NERD TREE=============
 " open NERDTree automatically when vim starts up on opening a directory
 autocmd StdinReadPre * let s:std_in=1
@@ -224,35 +214,6 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&b:NERDTree.isTabTree()) | q | endif
 
 set guifont=Hurmit\ Nerd\ Font
-
-" loading the plugin 
-let g:webdevicons_enable = 1
-" adding the flags to NERDTree 
-let g:webdevicons_enable_nerdtree = 1
-" adding the custom source to unite 
-let g:webdevicons_enable_unite = 1
-" adding the column to vimfiler 
-let g:webdevicons_enable_vimfiler = 1
-" adding to vim-airline's tabline 
-let g:webdevicons_enable_airline_tabline = 1
-" adding to vim-airline's statusline 
-let g:webdevicons_enable_airline_statusline = 1
-" ctrlp glyphs
-let g:webdevicons_enable_ctrlp = 1
-" adding to flagship's statusline
-let g:webdevicons_enable_flagship_statusline = 1
-" turn on/off file node glyph decorations (not particularly useful)
-let g:WebDevIconsUnicodeDecorateFileNodes = 1
-" use double-width(1) or single-width(0) glyphs 
-" only manipulates padding, has no effect on terminal or set(guifont) font
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 0
-" whether or not to show the nerdtree brackets around flags 
-let g:webdevicons_conceal_nerdtree_brackets = 1
-" the amount of space to use after the glyph character (default ' ')
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-" Force extra padding in NERDTree so that the filetype icons line up vertically 
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-
 " ==========NERD COMMENTER==========
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -437,7 +398,7 @@ let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
 let g:pymode_rope_autoimport_import_after_complete = 0
 
 " Follow symlinks when opening a file {{{
-" NOTE: this happens with directory symlinks anyway
+" NOTE: this happens with directory symlinks anyway 
 \ (due to Vim's chdir/getcwd magic when getting filenames).
 " Sources:
 "  https://github.com/tpope/vim-fugitive/issues/147#issuecomment-7572351

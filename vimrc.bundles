@@ -5,27 +5,21 @@ end
 " Autoinstall vim-plug {{{
 if empty(glob('~/.nvim/autoload/plug.vim'))
 	silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
-		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.viuautocmd VimEnter * PlugInstall
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall
 endif
 " }}}
-
-function! TweakIndentLine(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-	if a:info.status == 'installed'
-		let g:indentLine_color_term = 239
-		let g:indentLine_char = '┆'
-		let g:indentLine_concealcursor = 'inc'
-		let g:indentLine_conceallevel = 2
-	endif
-endfunction
 
 call plug#begin('~/.vim/bundle')
 	Plug 'rking/ag.vim'
 	Plug 'terryma/vim-multiple-cursors'
-	Plug 'Yggdroot/indentLine', { 'do': function('TweakIndentLine') }
+	Plug 'Yggdroot/indentLine'
+	"{{{
+		let g:indentLine_color_term = 239
+		let g:indentLine_char = '┆'
+		let g:indentLine_concealcursor = 'inc'
+		let g:indentLine_conceallevel = 2
+	"}}}
 	Plug 'MarcWeber/vim-addon-mw-utils'
 	Plug 'easymotion/vim-easymotion'
 	" Python stuffs
@@ -40,10 +34,16 @@ call plug#begin('~/.vim/bundle')
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 	Plug 'vim-airline/vim-airline'
+	"{{{
+	let g:airline_powerline_fonts = 1                " Enable the list of buffers
+	let g:airline#extensions#tabline#enabled = 1     " Show just the filename
+	let g:airline#extensions#tabline#fnamemod = ':t' " Show buffer number
+	let g:airline#extensions#tabline#buffer_nr_show = 0
+	"}}}
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'majutsushi/tagbar'
 	Plug 'scrooloose/nerdcommenter'
-	Plug 'sjl/gundo.vim'
+	Plug 'sjl/vundo.vim'
 	Plug 'mbbill/undotree'
 	Plug 'godlygeek/tabular'
 	Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -64,14 +64,76 @@ call plug#begin('~/.vim/bundle')
 	Plug 'christoomey/vim-tmux-navigator'
 	" Git
 	Plug 'airblade/vim-gitgutter'
+	" {{{
+	let g:gitgutter_map_keys = 0
+	let g:gitgutter_max_signs = 200
+	let g:gitgutter_realtime = 1
+	let g:gitgutter_eager = 1
+	let g:gitgutter_sign_removed = '–'
+	let g:gitgutter_diff_args = '--ignore-space-at-eol'
+	nmap <silent> ]h :GitGutterNextHunk<CR>
+	nmap <silent> [h :GitGutterPrevHunk<CR>
+	nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
+	nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
+	nnoremap cog :GitGutterToggle<CR>
+	nnoremap <Leader>gt :GitGutterAll<CR>
+" }}}
 	Plug 'tomtom/tlib_vim'
 	Plug 'tpope/vim-fugitive'
+	" {{{
+  " Fix broken syntax highlight in gitcommit files
+  " (https://github.com/tpope/vim-git/issues/12)
+		let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
+		nnoremap <silent> <leader>gs :Gstatus<CR>
+		nnoremap <silent> <leader>gd :Gdiff<CR>
+		nnoremap <silent> <leader>gc :Gcommit<CR>
+		nnoremap <silent> <leader>gb :Gblame<CR>
+		nnoremap <silent> <leader>ge :Gedit<CR>
+		nnoremap <silent> <leader>gE :Gedit<space>
+		nnoremap <silent> <leader>gr :Gread<CR>
+		nnoremap <silent> <leader>gR :Gread<space>
+		nnoremap <silent> <leader>gw :Gwrite<CR>
+		nnoremap <silent> <leader>gW :Gwrite!<CR>
+		nnoremap <silent> <leader>gq :Gwq<CR>
+		nnoremap <silent> <leader>gQ :Gwq!<CR>
+
+		function! ReviewLastCommit()
+			if exists('b:git_dir')
+				Gtabedit HEAD^{}
+				nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
+			else
+				echo 'No git a git repository:' expand('%:p')
+			endif
+		endfunction
+		nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
+
+		augroup fugitiveSettings
+			autocmd!
+			autocmd FileType gitcommit setlocal nolist
+			autocmd BufReadPost fugitive://* setlocal bufhidden=delete
+		augroup END
+" }}}
 	" CTags
 	Plug 'szw/vim-tags'
 	Plug 'craigemery/vim-autotag'
 	" Load vim-devicons before ctrlp
 	" https://github.com/ryanoasis/vim-devicons/issues/183
 	Plug 'ryanoasis/vim-devicons'
+	"{{{
+	let g:webdevicons_enable = 1
+	let g:webdevicons_enable_nerdtree = 1           " add flags to NERDTree
+	let g:webdevicons_enable_unite = 1              " add custom source to unite
+	let g:webdevicons_enable_vimfiler = 0           " add column to vimfiler
+	let g:webdevicons_enable_airline_tabline = 1    " add to airline's tabline
+	let g:webdevicons_enable_airline_statusline = 1 " add to airline's statusline
+	let g:webdevicons_enable_ctrlp = 1              " ctrlp glyphs
+	let g:webdevicons_enable_flagship_statusline = 1 " adding to flagship's statusline
+	let g:Webdeviconsunicodedecoratefilenodes = 1   " file node glyph decorations
+	let g:Webdeviconsunicodeglyphdoublewidth = 0    " only manipulates padding
+	let g:webdevicons_conceal_nerdtree_brackets = 0 " show nerdtree brackets around flags
+	let g:Webdeviconsnerdtreeafterglyphpadding = '' " the amount of space to use after the glyph character (default ' ')
+	let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1 " Force extra padding in NERDTree so that the filetype icons line up vertically 
+	"}}} 
 	Plug 'ctrlpvim/ctrlp.vim'
 	
 	Plug 'moll/vim-bbye'
