@@ -39,6 +39,9 @@ call plug#begin('~/.vim/bundle')
 	let g:airline#extensions#tabline#enabled = 1     " Show just the filename
 	let g:airline#extensions#tabline#fnamemod = ':t' " Show buffer number
 	let g:airline#extensions#tabline#buffer_nr_show = 0
+	let g:airline#extensions#tmuxline#enabled = 1
+	let g:airline#extensions#whitespace#enabled = 0
+	let g:airline#extensions#tagbar#flags = 'f'
 	"}}}
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'majutsushi/tagbar'
@@ -91,7 +94,6 @@ call plug#begin('~/.vim/bundle')
 		nmap <silent> ]h :GitGutterNextHunk<CR>
 		nmap <silent> [h :GitGutterPrevHunk<CR>
 		nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
-		nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
 		nnoremap <silent> <Leader>gt :GitGutterToggle<CR>
 		nnoremap <silent> <Leader>ga :GitGutterAll<CR>
 " }}}
