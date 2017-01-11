@@ -21,7 +21,6 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 nnoremap <leader>a :Ag<space>
 nnoremap <Leader>q :Bdelete<CR>
-nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>CC :CtrlPClearCache<CR>:CtrlP<CR>
 nnoremap <leader>] :TagbarToggle<CR>
 nnoremap <leader>u :UndotreeToggle<cr>

@@ -31,6 +31,16 @@ call plug#begin('~/.vim/bundle')
 	Plug 'Raimondi/delimitMate'
 	" Trees & Bars
 	Plug 'scrooloose/nerdtree'
+	" {{{
+		let g:NERDTreeMinimalUI = 1
+		let g:NERDTreeHijackNetrw = 0
+		let g:NERDTreeWinSize = 31
+		let g:NERDTreeChDirMode = 2
+		let g:NERDTreeAutoDeleteBuffer = 1
+		let g:NERDTreeShowBookmarks = 1
+		let g:NERDTreeCascadeOpenSingleChildDir = 1
+		map <F1> :NERDTreeToggle<CR>
+	" }}}
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 	Plug 'vim-airline/vim-airline'
