@@ -10,7 +10,7 @@ set laststatus=2  " Always display the status line
 set showmatch
 set history=200
 set undolevels=200
-set pastetoggle=<F2>
+set pastetoggle=<f2>
 set relativenumber
 set number
 " ==============LEADER============
@@ -199,30 +199,6 @@ set autoread        "Always reload buffer when external changes detected
 set viminfo=h,'500,<10000,s1000,/1000,:1000
 set updatecount=10                  "Save buffer every 10 chars typed
 
-" =========TAG BAR===============
-nmap <F8> :TagbarToggle<CR>
-" =========NERD TREE=============
-" open NERDTree automatically when vim starts up on opening a directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&b:NERDTree.isTabTree()) | q | endif
-
-set guifont=Hurmit\ Nerd\ Font
-" ==========NERD COMMENTER==========
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-let g:NERDDefaultAlign = 'left'
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
 set laststatus=2
 "============TMUX============
 " Enable basic mouse behavior such as resizing buffers.
