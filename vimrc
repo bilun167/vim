@@ -285,41 +285,6 @@ vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
 vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
 vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 
-" Python
-set foldmethod=indent
-set foldnestmax=2
-set foldlevel=4
-let g:pymode = 1
-let g:pymode_warnings = 1
-let g:pymode_trim_whitespaces = 1
-let g:pymode_options = 1
-let g:pymode_options_max_line_length = 79
-let g:pymode_folding = 4
-let g:pymode_motion = 1
-let g:pymode_doc = 1
-let g:pymode_virtualenv = 1
-let g:pymode_virtualenv_path = $VIRTUAL_ENV
-let g:pymode_run = 1
-let g:pymode_run_bind = '<leader>r'
-let g:pymode_breakpoint_bind = '<leader>b'
-let g:pymode_breakpoint_cmd = ''
-let g:pymode_lint = 1
-let g:pymode_lint_unmodified = 0
-let g:pymode_lint_on_fly = 0
-let g:pymode_lint_message = 1
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
-let g:pymode_lint_sort = ['E', 'C', 'I']
-let g:pymode_lint_cwindow = 1
-let g:pymode_lint_signs = 1
-
-let g:pymode_rope = 1
-" Completion
-let g:pymode_rope_completion = 1
-let g:pymode_rope_completion_bind = '<C-Space>'
-let g:pymode_rope_complete_on_dot = 1
-let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
-let g:pymode_rope_autoimport_import_after_complete = 0
-
 " Follow symlinks when opening a file {{{
 " NOTE: this happens with directory symlinks anyway 
 \ (due to Vim's chdir/getcwd magic when getting filenames).
