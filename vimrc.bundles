@@ -71,6 +71,13 @@ call plug#begin('~/.vim/bundle')
 	Plug 'mbbill/undotree'
 	Plug 'godlygeek/tabular'
 	Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+	"{{{
+		let g:vim_markdown_folding_style_pythonic = 4
+		let g:vim_markdown_toc_autofit = 1
+		let g:vim_markdown_math = 1
+		let g:vim_markdown_frontmatter = 1
+		let g:vim_markdown_json_frontmatter = 1
+	"}}}
 	Plug 'w0ng/vim-hybrid'
 	" Javascript stuffs
 	Plug 'jelera/vim-javascript-syntax'

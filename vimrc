@@ -254,13 +254,6 @@ set tags=./.git/tags,tags;$HOME
 set tags+=$HOME/tags/java.tags
 set autochdir
 
-" ============MARKDOWN=============
-let g:vim_markdown_folding_style_pythonic = 4
-let g:vim_markdown_toc_autofit = 1
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_json_frontmatter = 1
-
 " ===========JSX==================
 " you would like JSX in .js files
 let g:jsx_ext_required = 0
