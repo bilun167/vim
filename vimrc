@@ -24,7 +24,6 @@ nnoremap <Leader>q :Bdelete<CR>
 nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>CC :CtrlPClearCache<CR>:CtrlP<CR>
 nnoremap <leader>] :TagbarToggle<CR>
-nnoremap <leader>g :GitGutterToggle<CR>
 nnoremap <leader>u :UndotreeToggle<cr>
 noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 nnoremap <leader>bq :Bdelete<CR>
@@ -240,11 +239,6 @@ set statusline +=%2*/%L%*               "total lines
 set statusline +=%1*%4v\ %*             "virtual column number
 set statusline +=%2*0x%04B\ %*          "character under cursor"
 
-let g:ycm_register_as_syntastic_checker = 0
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 " ==========CTRLP==========
 " If a file is already open, open it again in a new pane 
 " instead of switching to the existing pane
