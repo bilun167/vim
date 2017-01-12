@@ -1,4 +1,5 @@
-install: vundle symlink 
+install:
+	mkdir -p ~/.vim/autoload && cd ~/.vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 symlink: 
 	ln -sf `pwd`/vimrc ~/.vimrc;
