@@ -17,6 +17,11 @@ endif
 
 call plug#begin('~/.vim/bundle')
 	Plug 'rking/ag.vim'
+	"{{{
+		let g:ag_working_path_mode = "r"
+		nnoremap <leader>A :Ag<space>
+		nnoremap <leader>a :Ag <c-r>=expand("<cword>")<cr>
+	"}}}
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'Yggdroot/indentLine'
 	"{{{
@@ -90,6 +95,7 @@ call plug#begin('~/.vim/bundle')
 		let g:NERDTreeAutoDeleteBuffer = 1
 		let g:NERDTreeShowBookmarks = 1
 		let g:NERDTreeCascadeOpenSingleChildDir = 1
+		let NERDTreeIgnore = ['\.pyc$']
 		map <F1> :NERDTreeToggle<CR>
 	" }}}
 	Plug 'Xuyuanp/nerdtree-git-plugin'

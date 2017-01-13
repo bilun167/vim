@@ -19,7 +19,6 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
-nnoremap <leader>a :Ag<space>
 nnoremap <Leader>q :Bdelete<CR>
 nnoremap <leader>CC :CtrlPClearCache<CR>:CtrlP<CR>
 nnoremap <leader>] :TagbarToggle<CR>
@@ -126,8 +125,8 @@ if executable('ag')
 endif
 
 " Make it obvious where 80 characters is
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
+highlight TooLongColumn ctermbg=magenta guibg=magenta
+call matchadd('TooLongColumn', '\%81v\+', 100)
 
 " Tab completion will insert tab at beginning of line,
 " will use completion if not at beginning
