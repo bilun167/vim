@@ -1,5 +1,5 @@
 install:
-	mkdir -p ~/.vim/autoload && cd ~/.vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	mkdir -p ~/.vim/autoload && cd ~/.vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && cd `pwd`
 
 symlink: 
 	ln -sf `pwd`/vimrc ~/.vimrc;
@@ -8,6 +8,5 @@ symlink:
 	ln -sf `pwd`/plugin ~/.vim/
 	ln -sf `pwd`/colors ~/.vim/
 
-vundle: 
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
+pull:
+	git pull origin master
