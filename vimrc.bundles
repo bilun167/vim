@@ -18,9 +18,13 @@ endif
 call plug#begin('~/.vim/bundle')
 	Plug 'rking/ag.vim'
 	"{{{
-		let g:ag_working_path_mode = "r"
-		nnoremap <leader>A :Ag<space>
-		nnoremap <leader>a :Ag <c-r>=expand("<cword>")<cr>
+		"ca Ag Ag! # prevent opening first result in QuickFix
+		let g:ag_working_path_mode='r'
+		let g:ag_highlight=1
+		let g:ag_prg="ag --vimgrep --smart-case"
+
+		nnoremap <leader>A :Ag!<space>
+		nnoremap <leader>a :Ag! <c-r>=expand("<cword>")<cr>
 	"}}}
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'Yggdroot/indentLine'
@@ -239,17 +243,12 @@ call plug#begin('~/.vim/bundle')
 		" This makes a lot of sense if you are working on a project that is in version
 		" control. It also supports works with .svn, .hg, .bzr.
 		let g:ctrlp_working_path_mode = 'r'
-
-		" Ignore files
-		set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-		" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-		let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-		" let g:ctrlp_user_command = 'find %s -type f'
+		" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+		let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
+		" ag is fast enough that CtrlP doesn't need to cache
+		let g:ctrlp_use_caching = 0
 		let g:ctrlp_match_window = 'order:ttb,max:20'
-		let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-			\ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-		\}
+		set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 	"}}}
 	" CTags
 	Plug 'szw/vim-tags'

@@ -7,6 +7,7 @@ symlink:
 	ln -sf `pwd`/syntax ~/.vim/
 	ln -sf `pwd`/plugin ~/.vim/
 	ln -sf `pwd`/colors ~/.vim/
+	ln -sf `pwd`/agignore ~/.agignore
 
 pull:
 	git pull origin master
