@@ -34,7 +34,7 @@ call plug#begin('~/.vim/bundle')
 		let g:indentLine_concealcursor = 'inc'
 		let g:indentLine_conceallevel = 2
 	"}}}
-	Plug 'MarcWeber/vim-addon-mw-utils'
+	
 	Plug 'easymotion/vim-easymotion'
 	" Python stuffs
 	Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
@@ -74,7 +74,18 @@ call plug#begin('~/.vim/bundle')
 	"}}}
 	" Snippets
 	Plug 'garbas/vim-snipmate'
+	Plug 'MarcWeber/vim-addon-mw-utils'
+	Plug 'tomtom/tlib_vim'
 	Plug 'honza/vim-snippets'
+	"{{{
+		let g:UltiSnipsExpandTrigger           = '<tab>'
+		let g:UltiSnipsJumpForwardTrigger      = '<tab>'
+		let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
+	"}}}
+	Plug 'ervandew/supertab'
+	"{{{
+		let g:SuperTabDefaultCompletionType = "<c-n>"
+	"}}}
 	Plug 'Raimondi/delimitMate'
 	" {{{
 		let delimitMate_expand_cr = 2
@@ -118,7 +129,7 @@ call plug#begin('~/.vim/bundle')
 	Plug 'majutsushi/tagbar'
 	"{{{
 		nmap <silent> <Leader>tb :TagbarToggle<CR>
-		let g:tagbar_autopreview = 1
+		let g:tagbar_autopreview = 0
 	"}}}
 	Plug 'scrooloose/nerdcommenter'
 	"{{{
@@ -195,7 +206,6 @@ call plug#begin('~/.vim/bundle')
 		nnoremap <silent> <Leader>sh :GitGutterStageHunk
 " }}}
 	Plug 'esneider/YUNOcommit.vim'
-	Plug 'tomtom/tlib_vim'
 	Plug 'tpope/vim-fugitive'
 	" {{{
   " Fix broken syntax highlight in gitcommit files
