@@ -13,6 +13,7 @@ set undolevels=200
 set pastetoggle=<f2>
 set relativenumber
 set number
+set background=dark
 " ==============LEADER============
 let mapleader = ','
 noremap <C-h> <C-w>h
