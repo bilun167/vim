@@ -224,15 +224,8 @@ set title
 set tags=./.git/tags,tags;$HOME
 set tags+=$HOME/tags/java.tags
 
-" ===========JSX==================
-" you would like JSX in .js files
-let g:jsx_ext_required = 0
-" Restrict JSX to files with the pre-v0.12 @jsx React.DOM pragma
-let g:jsx_pragma_required = 1
 " =====For plugin/autoswap.vim===
 set title titlestring=
-" ========XML Highlighting=======
-au BufReadPost *.jxml set syntax=javascript
 
 "enable keyboard shortcuts
 let g:tern_map_keys=1
