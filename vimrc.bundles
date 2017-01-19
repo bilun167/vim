@@ -173,6 +173,7 @@ call plug#begin('~/.vim/bundle')
 	" ========XML Highlighting=======
 	au BufReadPost *.jxml set syntax=javascript
 	"}}}
+	Plug 'justinj/vim-react-snippets'
 	Plug 'git@github.com:zopim/vim-jxml.git'
 	Plug 'elzr/vim-json'
 	" CSS
