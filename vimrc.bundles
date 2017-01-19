@@ -164,6 +164,15 @@ call plug#begin('~/.vim/bundle')
 	Plug 'ternjs/tern_for_vim' "autocomplete
 	Plug 'pangloss/vim-javascript'
 	Plug 'mxw/vim-jsx'
+	"{{{
+	let g:jsx_ext_required = 0 " you would like JSX in .js files
+	let s:jsx_pragma_pattern = '\%^\_s*\/\*\*\%(\_.\%(\*\/\)\@!\)*@jsx\_.\{-}\*\/'
+	let b:jsx_pragma_found = search(s:jsx_pragma_pattern, 'npw')
+
+	"let g:jsx_pragma_required = 1 " files with the pre-v0.12 @jsx React.DOM pragma
+	" ========XML Highlighting=======
+	au BufReadPost *.jxml set syntax=javascript
+	"}}}
 	Plug 'git@github.com:zopim/vim-jxml.git'
 	Plug 'elzr/vim-json'
 	" CSS
