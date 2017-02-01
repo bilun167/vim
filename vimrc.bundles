@@ -21,8 +21,8 @@ call plug#begin('~/.vim/bundle')
 		"ca Ag Ag! # prevent opening first result in QuickFix
 		let g:ag_working_path_mode='r'
 		let g:ag_highlight=1
-		let g:ag_prg="ag --vimgrep --smart-case"
-
+		let g:ag_prg="ag --vimgrep --smart-case --hidden"
+"		let g:ag_prg='ag %s -l --nocolor --hidden'
 		nnoremap <leader>A :Ag!<space>
 		nnoremap <leader>a :Ag! <c-r>=expand("<cword>")<cr>
 	"}}}
