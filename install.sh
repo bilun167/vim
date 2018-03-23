@@ -1,3 +1,3 @@
 #!/bin/sh
-git clone git@github.com:bilun167/vim.git ~/myVim
+git clone https://github.com/bilun167/vim.git
 cd ~/myVim; make install;
