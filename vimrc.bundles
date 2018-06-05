@@ -266,6 +266,9 @@ call plug#begin('~/.vim/bundle')
 	"{{{
 		nnoremap <C-b> :CtrlPBuffer<CR>
 		nnoremap <C-f> :CtrlPMRU<CR>
+		let g:ctrlp_custom_ignore = {
+  \ 'dir': 'node_modules\|DS_Store\|.git'
+  \ }
 		" If a file is already open, open it again 
 		"in a new pane instead of switching to the existing pane
 		let g:ctrlp_switch_buffer = 'et'
